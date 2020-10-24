@@ -118,7 +118,8 @@ public class AddressCorrectionAdditionalFragment extends BaseFragment {
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                LatLng newLatLng = new LatLng(Double.parseDouble(model.getLat()), Double.parseDouble(model.getLng()));
+                LatLng newLatLng = new LatLng(Double.parseDouble(
+                        model.getLat()), Double.parseDouble(model.getLng()));
                 CameraUpdate camUpdate = CameraUpdateFactory.newLatLngZoom(newLatLng, 16);
                 googleMap.moveCamera(camUpdate);
 

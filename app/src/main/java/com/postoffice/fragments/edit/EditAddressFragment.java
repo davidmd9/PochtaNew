@@ -124,8 +124,8 @@ public class EditAddressFragment extends BaseFragment implements EditFragmentCon
                     String position = txLatLng.getText().toString();
                     if (position != null) {
                         String[] separated = position.split(" ");
-                        String lat = separated[0].trim();
-                        String lng = separated[1].trim();
+                        String lat = separated[0].trim().replace(',', '.');
+                        String lng = separated[1].trim().replace(',', '.');
 
                         AddressDBModel model = new AddressDBModel();
                         model.setLat(lat);

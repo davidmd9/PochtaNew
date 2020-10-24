@@ -186,8 +186,8 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
                     @Override
                     public void onResponse(Call<TaskResult> call, Response<TaskResult> response) {
                         if (response.isSuccessful()){
-                            getActivity().onBackPressed();
                             Toast.makeText(getContext(),"Отправлено!!!", Toast.LENGTH_LONG).show();
+                            getActivity().onBackPressed();
                         } else {
                             String s = null;
                             try {
