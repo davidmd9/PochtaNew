@@ -1,5 +1,6 @@
 package com.postoffice.network;
 
+import com.postoffice.model.Tasks.TaskResult;
 import com.postoffice.model.google.GoogleGeocoderModel;
 import com.postoffice.model.yandex.YaResponse;
 
@@ -15,4 +16,7 @@ public interface Api {
 
     @GET("geocode/json?key=AIzaSyB8TSCnDOoUBEVyB-mN2VVrMl_WHxr59Qk")
     Call<GoogleGeocoderModel> getGoogleGeoCollection(@Query("address") String address);
+
+    @GET("api/tasks")
+    Call<TaskResult> getAllTasks();
 }

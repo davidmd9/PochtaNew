@@ -19,9 +19,6 @@ public class AddressCorrectionAdditionalFragment extends BaseFragment {
     protected void bindView(View view) {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         setToolbar(toolbar, "Коррекция адреса");
-
-
-
     }
 
     @Nullable
