@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,11 +36,23 @@ import com.postoffice.R;
 import com.postoffice.base.BaseFragment;
 import com.postoffice.model.Tasks.Address;
 import com.postoffice.model.Tasks.Task;
+import com.postoffice.model.Tasks.TaskResult;
+import com.postoffice.network.ApiClient;
+import com.postoffice.network.OurApiClient;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,11 +63,13 @@ import static android.app.Activity.RESULT_OK;
 public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallback {
 
     Address address;
+    Task task;
     TextView txLatLng;
     ImageButton btnPhoto;
     ImageView ivImage;
     EditText etText;
     Button btnSend;
+    GoogleMap googleMap;
 
     String currentPhotoPath;
     public static final int REQUEST_IMAGE_CAPTURE = 1213;
@@ -65,6 +80,7 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
     }
 
 
+
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
@@ -73,14 +89,17 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
             // display error state to the user
         }
     }
-
+    Bitmap imageBitmap;
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = (Bitmap) extras.get("data");
             ivImage.setImageBitmap(imageBitmap);
         }
     }
+
+
+
 
 
     @Override
@@ -88,6 +107,7 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             address = (Address) getArguments().getSerializable("addr");
+            task = (Task) getArguments().getSerializable("task");
         }
     }
 
@@ -121,8 +141,69 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideKeyboard();
-                getMainActivity().getSupportFragmentManager().popBackStack();
+                Uri outputFileUri = null;
+                if(imageBitmap!=null) {
+                    File img = new File(getContext().getFilesDir(), "image_" + Math.round(Math.random() * 1000) + ".jpg");
+                    outputFileUri = Uri.fromFile(img);
+                    try {
+                        FileOutputStream fOut = new FileOutputStream(outputFileUri.getPath());
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 80, fOut);
+                        fOut.flush();
+                        fOut.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                MultipartBody.Part imagenPerfil = null;
+                if(outputFileUri.getPath()!=null){
+                    File file = new File(outputFileUri.getPath());
+                    RequestBody requestFile =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    imagenPerfil = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+                }
+                RequestBody requestLat =
+                        RequestBody.create(
+                                MediaType.parse("multipart/form-data"), String.format("%.5f", googleMap.getCameraPosition().target.latitude));
+                RequestBody requestLom =
+                        RequestBody.create(
+                                MediaType.parse("multipart/form-data"), String.format("%.5f", googleMap.getCameraPosition().target.longitude));
+                RequestBody task_id =
+                        RequestBody.create(
+                                MediaType.parse("multipart/form-data"), task.getID()+"");
+                RequestBody addr_id =
+                        RequestBody.create(
+                                MediaType.parse("multipart/form-data"), address.getID()+"");
+
+                RequestBody text =
+                        RequestBody.create(
+                                MediaType.parse("multipart/form-data"), etText.getText().toString());
+
+
+
+                OurApiClient.getApi().sendTask(requestLat, requestLom,task_id,addr_id,text,imagenPerfil).enqueue(new Callback<TaskResult>() {
+                    @Override
+                    public void onResponse(Call<TaskResult> call, Response<TaskResult> response) {
+                        if (response.isSuccessful()){
+                            getActivity().onBackPressed();
+                            Toast.makeText(getContext(),"Отправлено!!!", Toast.LENGTH_LONG).show();
+                        } else {
+                            String s = null;
+                            try {
+                                s = new String(response.errorBody().bytes());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("Error", "onResponse: "+s);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TaskResult> call, Throwable t) {
+                        Toast.makeText(getContext(),t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
         return v;
@@ -130,6 +211,7 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setAllGesturesEnabled(true);
         googleMap.setMinZoomPreference(14.0f);
@@ -138,7 +220,7 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
             @Override
             public void onCameraMove() {
 
-                txLatLng.setText(String.format("%.5f", googleMap.getCameraPosition().target.latitude) + " " + String.format("%.5f", googleMap.getCameraPosition().target.longitude));
+                txLatLng.setText( String.format("%.5f", googleMap.getCameraPosition().target.latitude) +" "+String.format("%.5f", googleMap.getCameraPosition().target.longitude));
             }
         });
         LatLng latlng = new LatLng(Double.parseDouble(address.getLat()), Double.parseDouble(address.getLng()));
@@ -149,6 +231,5 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
     protected void bindView(View view) {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         setToolbar(toolbar, "");
-
     }
 }
