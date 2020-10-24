@@ -1,6 +1,8 @@
 package com.postoffice.model.Tasks;
 
-public class Pivot {
+import java.io.Serializable;
+
+public class Pivot implements Serializable {
     private long taskID;
     private long addressID;
 

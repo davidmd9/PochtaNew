@@ -81,7 +81,7 @@ public class TaskViewFragment extends BaseFragment implements AdressClickListene
 
         TaskAdressFragment fragment = new TaskAdressFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("task", task);
+        bundle.putSerializable("addr", task);
         fragment.setArguments(bundle);
         getNavigationPresenter().pushFragment(fragment, true);
 
