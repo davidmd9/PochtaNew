@@ -21,6 +21,8 @@ public class EditFragmentContract {
 
         void showMap();
 
+        void showResultsContainer();
+
     }
 
     abstract static class Presenter extends BasePresenter<View> {

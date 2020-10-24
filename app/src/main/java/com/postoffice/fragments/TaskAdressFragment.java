@@ -65,7 +65,6 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
     }
 
 
-
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
@@ -84,9 +83,6 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
     }
 
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +95,7 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_task_adress, container, false);
+        View v = inflater.inflate(R.layout.fragment_task_adress, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -141,7 +137,7 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
             @Override
             public void onCameraMove() {
 
-                txLatLng.setText( String.format("%.5f", googleMap.getCameraPosition().target.latitude) +" "+String.format("%.5f", googleMap.getCameraPosition().target.longitude));
+                txLatLng.setText(String.format("%.5f", googleMap.getCameraPosition().target.latitude) + " " + String.format("%.5f", googleMap.getCameraPosition().target.longitude));
             }
         });
         LatLng latlng = new LatLng(Double.parseDouble(address.getLat()), Double.parseDouble(address.getLng()));

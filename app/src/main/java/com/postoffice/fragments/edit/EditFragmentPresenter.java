@@ -41,6 +41,7 @@ public class EditFragmentPresenter extends EditFragmentContract.Presenter {
                 .doOnComplete(() -> {
                     view.hideProgress();
                     view.showMap();
+                    view.showResultsContainer();
                 }).subscribe(this::handleResult, this::handleError)
         );
     }
