@@ -30,7 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void showProgress() {
         hideProgress();
         progressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        progressDialog.getProgressHelper().setBarColor(Color.parseColor("#EC464C"));
+        progressDialog.getProgressHelper().setBarColor(Color.parseColor("#1C67AE"));
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
