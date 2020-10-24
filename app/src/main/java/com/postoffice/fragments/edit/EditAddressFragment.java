@@ -23,8 +23,14 @@ public class EditAddressFragment extends BaseFragment implements EditFragmentCon
     private EditFragmentPresenter presenter = new EditFragmentPresenter();
 
     private LinearLayout llResult;
+    private LinearLayout llYandex;
+    private LinearLayout llGoogle;
+
     private TextView tvGoogleCoordinates;
     private TextView tvGoogleFormattedAddress;
+
+    private TextView tvYaCoordinate;
+    private TextView tvYaAddress;
 
     @Nullable
     @Override
@@ -39,36 +45,26 @@ public class EditAddressFragment extends BaseFragment implements EditFragmentCon
 
         llResult = view.findViewById(R.id.llResults);
 
+        EditText etSearch = view.findViewById(R.id.etSearch);
         ImageButton btnSearch = view.findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            }
-        });
-
-        EditText etSearch = view.findViewById(R.id.etSearch);
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().length() > 3){
-                    presenter.onSearchFieldChanged(s.toString());
+                if(etSearch.getText().length() > 3){
+                    presenter.onSearchFieldChanged(etSearch.getText().toString());
                 }
             }
         });
 
+
         tvGoogleCoordinates = view.findViewById(R.id.tvGoogleCoordinates);
         tvGoogleFormattedAddress = view.findViewById(R.id.tvGoogleAddress);
+
+        tvYaCoordinate = view.findViewById(R.id.tvYaCoordinate);
+        tvYaAddress = view.findViewById(R.id.tvYaAddress);
+
+        llYandex = view.findViewById(R.id.llYandex);
+        llGoogle = view.findViewById(R.id.llGoogle);
     }
 
     @Override
@@ -87,11 +83,24 @@ public class EditAddressFragment extends BaseFragment implements EditFragmentCon
     public void showGoogleGeocoderResult(String latLng, String address) {
         tvGoogleCoordinates.setText(latLng);
         tvGoogleFormattedAddress.setText(address);
+
+        llGoogle.setVisibility(View.VISIBLE);
+        llGoogle.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .setListener(null);
     }
 
     @Override
     public void showYandexGeocoderResult(String latLng, String address) {
+        tvYaCoordinate.setText(latLng);
+        tvYaAddress.setText(address);
 
+        llYandex.setVisibility(View.VISIBLE);
+        llYandex.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .setListener(null);
     }
 
     @Override
