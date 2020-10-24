@@ -4,6 +4,7 @@ import com.grapesnberries.curllogger.CurlLoggerInterceptor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class YandexApiClient {
@@ -16,6 +17,7 @@ public class YandexApiClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(URL)
                 .client(httpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         return retrofit.create(Api.class);

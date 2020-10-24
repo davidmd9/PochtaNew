@@ -12,12 +12,19 @@ public class EditFragmentContract {
         void showYandexGeocoderResult(String latLng, String address);
 
         void showOSMGeocoderResult(String latLng, String address);
+
+        void showGoogleMarker(double lat, double lng);
+
+        void showYandexMarker(double lat, double lng);
+
+        void showOSMMarker(double lat, double lng);
+
+        void showMap();
+
     }
 
-    abstract static class Presenter extends BasePresenter<View>{
+    abstract static class Presenter extends BasePresenter<View> {
 
-        abstract void onSearchFieldChanged(String query);
-
-
+        abstract void onSearch(String query);
     }
 }

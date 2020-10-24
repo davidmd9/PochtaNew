@@ -4,9 +4,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class GoogleApiClient {
+public class OSMApiClient {
 
-    private static final String URL = "https://maps.googleapis.com/maps/api/";
+    private static final String URL = "https://nominatim.openstreetmap.org/";
     private static final String TAG = "CURL";
 
     public static Api getApi() {
@@ -18,5 +18,6 @@ public class GoogleApiClient {
 
         return retrofit.create(Api.class);
     }
+
 }
 
