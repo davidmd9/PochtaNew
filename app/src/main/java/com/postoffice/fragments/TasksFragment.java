@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class TasksFragment extends BaseFragment implements TasksClickListener {
 
     RecyclerView recyclerView;
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
     TasksAdapter adapter;
 
     @Nullable
@@ -38,7 +38,7 @@ public class TasksFragment extends BaseFragment implements TasksClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_tasks, container, false);
         recyclerView = v.findViewById(R.id.recyclerView);
-        progressBar = v.findViewById(R.id.progressBar);
+//        progressBar = v.findViewById(R.id.progressBar);
         adapter = new TasksAdapter(getContext(), null, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -51,7 +51,7 @@ public class TasksFragment extends BaseFragment implements TasksClickListener {
         OurApiClient.getApi().getAllTasks().enqueue(new Callback<TaskResult>() {
             @Override
             public void onResponse(Call<TaskResult> call, Response<TaskResult> response) {
-                progressBar.setVisibility(View.GONE);
+               hideProgress();
                 if (response.isSuccessful()){
                     if (response.body().getSuccess()){
                         adapter.updateData(response.body());
@@ -61,7 +61,7 @@ public class TasksFragment extends BaseFragment implements TasksClickListener {
 
             @Override
             public void onFailure(Call<TaskResult> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                hideProgress();
                 Toast.makeText(getContext(),t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
             }
         });
