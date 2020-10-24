@@ -30,6 +30,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/etSearch"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
@@ -194,7 +195,7 @@
                                 android:layout_width="36dp"
                                 android:layout_height="36dp"
                                 android:layout_marginEnd="8dp"
-                                android:src="@drawable/ic_osm" />
+                                android:src="@drawable/ic_google" />
 
                             <TextView
                                 android:id="@+id/tvTitleGoogle"
@@ -204,7 +205,7 @@
                                 android:text="Google Координаты:" />
 
                             <TextView
-                                android:id="@+id/tvGoogleCoordinate"
+                                android:id="@+id/tvGoogleCoordinates"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tvTitleGoogle"
@@ -214,7 +215,7 @@
                         </RelativeLayout>
 
                         <TextView
-                            android:id="@+id/tvGoogle"
+                            android:id="@+id/tvGoogleAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/rlTopGoogle"
