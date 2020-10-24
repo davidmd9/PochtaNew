@@ -39,6 +39,8 @@ public class TasksFragment extends BaseFragment implements TasksClickListener {
         View v =  inflater.inflate(R.layout.fragment_tasks, container, false);
         recyclerView = v.findViewById(R.id.recyclerView);
 //        progressBar = v.findViewById(R.id.progressBar);
+
+        showProgress();
         adapter = new TasksAdapter(getContext(), null, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
