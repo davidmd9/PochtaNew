@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 
 import com.postoffice.R;
 import com.postoffice.base.BaseFragment;
@@ -21,6 +22,8 @@ public class EditAddressFragment extends BaseFragment {
 
     @Override
     protected void bindView(View view) {
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        setToolbar(toolbar, "Коррекиця адреса");
 
     }
 }

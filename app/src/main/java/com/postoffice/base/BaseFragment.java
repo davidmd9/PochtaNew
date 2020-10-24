@@ -3,11 +3,14 @@ package com.postoffice.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.postoffice.R;
 import com.postoffice.mvp.BaseView;
 import com.postoffice.FragmentNavigation;
 
@@ -83,6 +86,13 @@ public abstract class BaseFragment extends Fragment implements BaseView, Fragmen
 
     public FragmentNavigation.Presenter getNavigationPresenter() {
         return navigationPresenter;
+    }
+
+
+    protected void setToolbar(Toolbar toolbar, String title) {
+        mainActivity.setSupportActionBar(toolbar);
+        TextView tvTitle = ((View) toolbar.getParent()).findViewById(R.id.tvTitle);
+        if (tvTitle != null) tvTitle.setText(title);
     }
 
 }

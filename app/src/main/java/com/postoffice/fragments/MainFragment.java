@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 
 import com.postoffice.R;
 import com.postoffice.base.BaseFragment;
@@ -22,6 +23,9 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void bindView(View view) {
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        setToolbar(toolbar, "Главное меню");
+
         LinearLayout llEdit = view.findViewById(R.id.llEditAddress);
         llEdit.setOnClickListener(new View.OnClickListener() {
             @Override
