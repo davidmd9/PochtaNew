@@ -9,12 +9,97 @@
 
 
     <!-- TODO: Update blank fragment layout -->
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.postoffice.MainActivity" />
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Text"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_margin="8dp"
+                android:id="@+id/textView"
+                />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:layout_below="@id/textView"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                tools:context="com.postoffice.MainActivity" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:layout_alignLeft="@id/map"
+                android:layout_alignRight="@id/map"
+                android:layout_alignTop="@id/map"
+                android:layout_alignBottom="@id/map">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ddd"
+                    android:layout_margin="8dp"
+                    android:id="@+id/txLatLng"
+                    android:textColor="@color/black"/>
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_pin_icon"
+                    android:layout_centerInParent="true"
+                    android:paddingBottom="16dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/map"
+                android:id="@+id/rlItems"
+                >
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/btnPhoto"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/ic_btn_photo_bg"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ivImage"
+                    android:layout_toRightOf="@id/btnPhoto"/>
+
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ввод текста:"
+                android:layout_below="@id/rlItems"
+                android:id="@+id/tvText"
+                android:layout_margin="8dp"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:id="@+id/etText"
+                android:layout_below="@id/tvText"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etText"
+                android:padding="12dp"
+                android:layout_margin="8dp"
+                android:id="@+id/btnSend"
+                android:text="Отправить"/>
+        </RelativeLayout>
+    </ScrollView>
 
 </LinearLayout>
