@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
 import com.postoffice.base.BaseActivity;
 import com.postoffice.base.BaseFragment;
 import com.postoffice.fragments.MainFragment;
@@ -26,7 +27,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     protected void init(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         presenter.attach(this);
-
+        FirebaseApp.initializeApp(this);
         pushFragment(new MainFragment(), false);
     }
 
