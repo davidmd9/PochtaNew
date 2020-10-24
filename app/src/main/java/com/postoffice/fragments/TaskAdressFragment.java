@@ -121,7 +121,8 @@ public class TaskAdressFragment extends BaseFragment implements OnMapReadyCallba
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                hideKeyboard();
+                getMainActivity().getSupportFragmentManager().popBackStack();
             }
         });
         return v;
