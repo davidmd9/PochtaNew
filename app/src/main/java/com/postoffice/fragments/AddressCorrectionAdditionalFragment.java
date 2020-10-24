@@ -14,27 +14,44 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.postoffice.R;
 import com.postoffice.base.BaseFragment;
+import com.postoffice.model.AddressDBModel;
 
 public class AddressCorrectionAdditionalFragment extends BaseFragment {
 
+    private AddressDBModel model;
     private ImageButton buttonAddPhoto;
-    private View mapsView;
     private ImageView photo;
+    private SupportMapFragment mapView;
 
     private EditText etNumber;
 
     private Button correctionButton;
     private Button addOrganitionButton;
+    FirebaseDatabase database;
+
+    public AddressCorrectionAdditionalFragment(AddressDBModel model) {
+        this.model = model;
+    }
 
     @Override
     protected void bindView(View view) {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         setToolbar(toolbar, "Коррекция адреса");
 
+        database = FirebaseDatabase.getInstance();
         buttonAddPhoto = view.findViewById(R.id.addPhotoBtn);
-        mapsView = view.findViewById(R.id.mapView);
+        mapView = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapView);
         photo = view.findViewById(R.id.photo);
 
         etNumber = view.findViewById(R.id.etNumber);
@@ -48,6 +65,19 @@ public class AddressCorrectionAdditionalFragment extends BaseFragment {
 
             }
         });
+
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                CameraUpdate camUpdate = CameraUpdateFactory.newLatLng(new LatLng(44, 44));
+                googleMap.moveCamera(camUpdate);
+            }
+        });
+
+        DatabaseReference changes = database.getReference("changes");
+//        changes.a
+
+
 
     }
 

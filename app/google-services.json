@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "48098897674",
+    "firebase_url": "https://postoffice-51d51.firebaseio.com",
+    "project_id": "postoffice-51d51",
+    "storage_bucket": "postoffice-51d51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48098897674:android:d63d2d3ec873b28b7214f3",
+        "android_client_info": {
+          "package_name": "com.postoffice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48098897674-16av6v2hohrfuoinqmoi809iolifc6al.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7pl02ct922TXpSS8Yorl04M1wfDoCq1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48098897674-16av6v2hohrfuoinqmoi809iolifc6al.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
