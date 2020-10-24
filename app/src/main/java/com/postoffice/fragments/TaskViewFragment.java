@@ -76,12 +76,13 @@ public class TaskViewFragment extends BaseFragment implements AdressClickListene
     }
 
     @Override
-    public void onAdressSelected(Address task) {
-        Toast.makeText(getContext(),task.getAddress(),Toast.LENGTH_LONG).show();
+    public void onAdressSelected(Address addr) {
+        Toast.makeText(getContext(),addr.getAddress(),Toast.LENGTH_LONG).show();
 
         TaskAdressFragment fragment = new TaskAdressFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("addr", task);
+        bundle.putSerializable("addr", addr);
+        bundle.putSerializable("task", task);
         fragment.setArguments(bundle);
         getNavigationPresenter().pushFragment(fragment, true);
 

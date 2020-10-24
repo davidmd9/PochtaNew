@@ -28,13 +28,13 @@ public interface Api {
     Call<TaskResult> getAllTasks();
 
     @Multipart
-    @POST("/api/result/store")
-    Call<String> sendTask(
-            @Part("image") MultipartBody.Part image,
+    @POST("api/result/store")
+    Call<TaskResult> sendTask(
             @Part("lat") RequestBody lat,
             @Part("lng") RequestBody lng,
-            @Part("taks_id") RequestBody taks_id,
+            @Part("task_id") RequestBody taks_id,
             @Part("address_id") RequestBody address_id,
-            @Part("text") RequestBody text);
+            @Part("text") RequestBody text,
+            @Part MultipartBody.Part image );
 
 }
